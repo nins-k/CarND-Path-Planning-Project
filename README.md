@@ -169,8 +169,9 @@ int num_waypoints = 4;
 double dist_waypoints = 25;
 for (int i = 0; i < num_waypoints; i++) 
 {
-    vector<double> add_waypoint = getXY(car_s + (i+1)*dist_waypoints, (lane_width_frenet*lane + (lane_width_frenet/2)), 
-                                                                       map_waypoints_s, map_waypoints_x, map_waypoints_y);
+    vector<double> add_waypoint = getXY(car_s + (i+1)*dist_waypoints,
+                                        (lane_width_frenet*lane + (lane_width_frenet/2)), 
+                                        map_waypoints_s, map_waypoints_x, map_waypoints_y);
 
     ptsx.push_back(add_waypoint[0]);
     ptsy.push_back(add_waypoint[1]);
@@ -193,7 +194,8 @@ The target horizon distance is set to 30 m.
 
 **isSameLane()**  - `Lines 181 - 194`
     
-    This method simply determines if a given *s* value is within a +/- 2 range of center of a given lane. Below is a snippet.  
+    This method simply determines if a given *s* value is within a +/- 2 range of center of a given lane.  
+    Below is a snippet.  
         
 ```cpp
 if (abs((traffic_d - (ego_lane*lane_width_frenet + lane_width_frenet/2))) <=2)
@@ -205,7 +207,9 @@ if (abs((traffic_d - (ego_lane*lane_width_frenet + lane_width_frenet/2))) <=2)
 
 **getTrafficData()** - `Lines 196 - 209`
 
-    Given the sensor fusion data and the number of points un-used in the previous trajectory, this method returns the projected *s* and *speed* values of the traffic vehicle. Below is a snippet.  
+    The method is given the sensor fusion data and the number of points un-used in the previous trajectory.  
+    This method returns the projected *s* and *speed* values of the traffic vehicle.  
+    Below is a snippet.  
     
 ```cpp
 //Predicting where the car will be in the future
@@ -218,7 +222,9 @@ return traffic_data;
 
 **getNextLane()** - `Lines 211 - 260`
 
-    This method simply checks which lanes are valid to change to (adjacency) and which one is the safest (distance to nearest vehicle). Below is a snippet.  
+    This method simply checks which lanes are valid to change to (adjacency).  
+    It also determines which one is the safest (distance to nearest vehicle).  
+    Below is a snippet.  
 
 ```cpp
 // If in left or right lane, check if moving to center lane is safe
