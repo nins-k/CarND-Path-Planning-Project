@@ -16,10 +16,12 @@ using namespace std;
 // Global variables and constants
 double const speed_limit_mph = 50.0;
 double const buffer_speed_mph = 4.0;
+int const lane_width_frenet = 4;
+
 double desired_speed_mph;
 double drive_speed_mph = 0;
 int lane = 1;
-int const lane_width_frenet = 4;
+
 
 // Global flags
 bool flag_slow_down_required = false;
@@ -202,7 +204,7 @@ vector<double> getTrafficData(vector<double> sensor_fusion, int path_size)
 	//Predicting where the car will be in the future
 	traffic_s += (double)path_size*0.02*traffic_speed;
 
-	vector<double> traffic_data = { traffic_s, traffic_speed};
+	vector<double> traffic_data = {traffic_s, traffic_speed};
 	return traffic_data;
 }
 
@@ -345,6 +347,7 @@ int main() {
 						double ref_yaw = deg2rad(car_yaw);
 						int path_size = previous_path_x.size();
 
+						// Set the ego car's location to the end of the previous trajectory
 						if(path_size > 0) {
           		car_s = end_path_s;
           	}
@@ -473,7 +476,7 @@ int main() {
 
 							}
 
-							// Check center lane if currently th ego vehicle is in the left/right lanes
+							// Check center lane if currently the ego vehicle is in the left/right lanes
 							if(lane!= 1) {
 								
 								// Check if there is a vehicle in the center lane
